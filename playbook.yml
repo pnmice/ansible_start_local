@@ -2,7 +2,7 @@
   - name: playbook
     hosts: localhost
     tasks:
-      - name: update ansible
+      - name: upgrade ansible
         shell: pip install --upgrade ansible
       
       - name: what ever 
