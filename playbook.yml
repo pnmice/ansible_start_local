@@ -2,6 +2,9 @@
   - name: playbook
     hosts: localhost
     tasks:
+      - name: update ansible
+        shell: pip install --upgrade ansible
+      
       - name: what ever 
         shell: mkdir -p ~/test
    
