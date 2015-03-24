@@ -1,23 +1,17 @@
 ---
   - name: playbook
     hosts: localhost
+    roles:
+      - install
+    vars_prompt:
+        - name: "user_pass1"
+          prompt: "enter pass1"
+          private: yes
+          encrypt: "md5_crypt" #need to have python-passlib
+          confirm: yes
+          salt_size: 7
     tasks:
-      - name: install essential software
-        sudo: yes
-        apt: name={{ item }} state=present
-        with_items:
-          - git
-          - wget
-          - vim
-          - curl
-          - python
-          - python-pip
-          - ansible
-      - name: for generate pass
-        pip: name=passlib state=present
-#      - name: upgrade ansible
-#        shell: pip install --upgrade ansible 
-      - name: create system group
-        group: name=webadmin state=present system=yes
-      - name: create system user and add user in group webadmin
-        user: name=cross.csro createhome=yes shell=/bin/bash groups=webadmin password=123 system=yes
+        - name: create system group
+          group: name=webadmin state=present system=yes
+        - name: create system user and add user in group webadmin
+          user: name=cross.csro createhome=yes shell=/bin/bash groups=webadmin password={{ user_pass1 }} system=yes
