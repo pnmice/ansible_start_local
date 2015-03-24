@@ -15,3 +15,6 @@
           group: name=webadmin state=present system=yes
         - name: create system user and add user in group webadmin
           user: name=cross.csro createhome=yes shell=/bin/bash groups=webadmin password={{ user_pass1 }} system=yes
+        
+        - name: create dir
+          file: path=/var/www/z state=directory owner=root group=webadmin mode=0775
