@@ -23,3 +23,16 @@
         - name: create file 512MB*1024=524288
           shell: dd if=/dev/zero of=/swapfile1 bs=1024 count=524288  
         
+        - name : dir variable
+          set_fact: dir="/var/www/" owner="root" group="webmin" 
+        - name: create dir document root
+          file: path={{ dir }}doc state=directory owner={{ owner }} group={{ group }} mode=0775
+        - name: create logs access
+          file: path={{ dir }}logs/access.log state=touch owner={{ owner }} group={{ group }} mode=0775
+        - name: create logs error
+          file: path={{ dir }}logs/error.log state=touch owner={{ owner }} group={{ group }} mode=0775
+        - name: create logs access ssl
+          file: path={{ dir }}logs/ssl_access.log state=touch owner={{ owner }} group={{ group }} mode=0775
+        - name: create logs error ssl
+          file: path={{ dir }}logs/ssl_error.log state=touch owner={{ owner }} group={{ group }} mode=0775 
+
