@@ -2,6 +2,8 @@
   - name: playbook
     hosts: localhost
     tasks:
+      - name: upgrade ansible
+        shell: pip install --upgrade ansible 
 #      - name: what ever 
 #        shell: mkdir -p ~/test
       - name: create group
