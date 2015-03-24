@@ -2,6 +2,10 @@
   - name: playbook
     hosts: localhost
     tasks:
-      - name: what ever 
-        shell: mkdir -p ~/test
-   
+#      - name: what ever 
+#        shell: mkdir -p ~/test
+      - name: create group
+        group: name=webadmin state=present         
+      - name: create user
+        user: name=cross.csro createhome=yes group=cross.csro shell=/bin/bash groups=webadmin password=123 system=yes
+      
