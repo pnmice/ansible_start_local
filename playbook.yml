@@ -18,3 +18,6 @@
         
         - name: create dir
           file: path=/var/www/z state=directory owner=root group=webadmin mode=0775
+         # if need inherit, umask 002 && chgrp namegroup . && chmod g+s .
+
+        
