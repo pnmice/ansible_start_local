@@ -2,14 +2,22 @@
   - name: playbook
     hosts: localhost
     tasks:
-#       - name: pip install
-#         apt: 
+      - name: install essential software
+        sudo: yes
+        apt: name={{ item }} state=present
+        with_items:
+          - git
+          - wget
+          - vim
+          - curl
+          - python
+          - python-pip
+          - ansible
+      - name: for generate pass
+        pip: name=passlib state=present
 #      - name: upgrade ansible
 #        shell: pip install --upgrade ansible 
-#      - name: what ever 
-#        shell: mkdir -p ~/test
-      - name: create group
-        group: name=webadmin state=present         
-      - name: create user
-        user: name=cross.csro createhome=yes group=cross.csro shell=/bin/bash groups=webadmin password=123 system=yes
-      
+      - name: create system group
+        group: name=webadmin state=present system=yes
+      - name: create system user and add user in group webadmin
+        user: name=cross.csro createhome=yes shell=/bin/bash groups=webadmin password=123 system=yes
