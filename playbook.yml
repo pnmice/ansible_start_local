@@ -19,5 +19,7 @@
         - name: create dir
           file: path=/var/www/z state=directory owner=root group=webadmin mode=0775
          # if need inherit, umask 002 && chgrp namegroup . && chmod g+s .
-
+         
+        - name: create file 512MB*1024=524288
+          shell: dd if=/dev/zero of=/swapfile1 bs=1024 count=524288  
         
