@@ -1,38 +1,71 @@
 ---
   - name: playbook
     hosts: localhost
-    roles:
-      - install
-    vars_prompt:
-        - name: "user_pass1"
-          prompt: "enter pass1"
-          private: yes
-          encrypt: "md5_crypt" #need to have python-passlib
-          confirm: yes
-          salt_size: 7
+#    roles:
+#      - yum_centos
+#      - apache_centos
+#      - apt_ubuntu
+#
+#
+#      
+#    vars_prompt:
+#        - name: "user_pass1"
+#          prompt: "enter pass1"
+#          private: yes
+#          encrypt: "md5_crypt" #need to have python-passlib
+#          confirm: yes
+#          salt_size: 7
+
+#    vars_prompt:
+#        - name: "user_pass2"
+#          prompt: "enter pass2"
+#          private: yes
+#          encrypt: "md5_crypt" #need to have python-passlib
+#          confirm: yes
+#          salt_size: 7
+
+#    vars_prompt:
+#        - name: "user_pass3"
+#          prompt: "enter pass3"
+#          private: yes
+#          encrypt: "md5_crypt" #need to have python-passlib
+#          confirm: yes
+#          salt_size: 7
+     
+#    vars_prompt:
+#        - name: "phrase_here"
+#          prompt: "enter ssl phrase"
+#          private: yes
+#          encrypt: "md5_crypt" #need to have python-passlib
+#          confirm: yes
+#          salt_size: 7
+
+
+
+
     tasks:
-        - name: create system group
-          group: name=webadmin state=present system=yes
-        - name: create system user and add user in group webadmin
-          user: name=cross.csro createhome=yes shell=/bin/bash groups=webadmin password={{ user_pass1 }} system=yes
+ 
+#        - name: create system group
+#          group: name=webadmin state=present system=yes
+#        - name: create system user and add user in group webadmin
+#          user: name=don.draper createhome=yes shell=/bin/bash groups=webadmin password={{ user_pass1 }} system=yes
         
-        - name: create dir
-          file: path=/var/www/z state=directory owner=root group=webadmin mode=0775
+#        - name: create system user and add user in group webadmin
+#          user: name=peggy.olson createhome=yes shell=/bin/bash groups=webadmin password={{ user_pass2 }} system=yes
+
          # if need inherit, umask 002 && chgrp namegroup . && chmod g+s .
          
-        - name: create file 512MB*1024=524288
-          shell: dd if=/dev/zero of=/swapfile1 bs=1024 count=524288  
-        
-        - name : dir variable
-          set_fact: dir="/var/www/" owner="root" group="webmin" 
-        - name: create dir document root
-          file: path={{ dir }}doc state=directory owner={{ owner }} group={{ group }} mode=0775
-        - name: create logs access
-          file: path={{ dir }}logs/access.log state=touch owner={{ owner }} group={{ group }} mode=0775
-        - name: create logs error
-          file: path={{ dir }}logs/error.log state=touch owner={{ owner }} group={{ group }} mode=0775
-        - name: create logs access ssl
-          file: path={{ dir }}logs/ssl_access.log state=touch owner={{ owner }} group={{ group }} mode=0775
-        - name: create logs error ssl
-          file: path={{ dir }}logs/ssl_error.log state=touch owner={{ owner }} group={{ group }} mode=0775 
+#        - name: create file 512MB*1024=524288
+#          shell: dd if=/dev/zero of=/swapfile1 bs=1024 count=524288  
 
+#         - name: dir
+#           set_fact: dir3="/var/www/vhosts/site3/"
+
+#         - name: ssl ca.key
+#           shell: openssl genrsa -out {{ dir3 }}ssl/ca.key 2048
+
+#         - name: ssl ca.csr
+#           shell: openssl req -new -key {{ dir3 }}ssl/ca.key -out {{ dir3 }}ssl/ca.csr -subj "/C=US/ST=Oregon/L=Portland/O=IT/CN={phrase_here}"
+
+#         - name: ca.crt
+#           shell: openssl x509 -req -days 365 -in {{ dir3 }}ssl/ca.csr -signkey {{ dir3 }}ssl/ca.key -out {{ dir3 }}ssl/ca.crt

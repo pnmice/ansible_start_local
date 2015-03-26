@@ -1,0 +1,98 @@
+- name: install essential software
+  sudo: yes
+  yum: name={{ item }} state=present
+  with_items:
+          - httpd
+          - perl 
+          - php-pear 
+          - pcre-devel 
+          - ImageMagick 
+          - memcached 
+          - php-pecl-memcached
+          - httpd 
+          - openssl 
+          - php 
+          - php-xml 
+          - php-gd 
+          - php-imap 
+          - php-mysql 
+          - php-odbc 
+          - php-pear 
+          - php-snmp 
+          - php-xmlrpc 
+          - php-mbstring 
+          - mod_perl 
+          - cyrus-sasl 
+          - cyrus-sasl-gssapi 
+          - mod_ssl 
+          - perl-XML-Simple 
+          - perl-Crypt-SSLeay
+
+#- name: create dir
+#  file: path=/var/www/vhosts state=directory owner=root group=webadmin mode=0775
+
+- name: create system group
+  group: name=webadmin state=present system=yes
+
+
+- name : dir variable
+  set_fact: apache_conf="/etc/httpd/conf/httpd.conf" dir1="/var/www/vhosts/site1/" dir2="/var/www/vhosts/site2/" dir3="/var/www/vhosts/site3/" owner="root" group="webadmin"
+
+- name: create dir1 document root
+  file: path={{ dir1 }}htdocs state=directory owner={{ owner }} group={{ group }} mode=0775
+- name: create dir2 document root
+  file: path={{ dir2 }}htdocs state=directory owner={{ owner }} group={{ group }} mode=0775
+- name: create dir3 document root
+  file: path={{ dir3 }}htdocs state=directory owner={{ owner }} group={{ group }} mode=0775
+
+- name: create dir1 document root
+  file: path={{ dir1 }}logs state=directory owner={{ owner }} group={{ group }} mode=0775
+- name: create dir2 document root
+  file: path={{ dir2 }}logs state=directory owner={{ owner }} group={{ group }} mode=0775
+- name: create dir3 document root
+  file: path={{ dir3 }}logs state=directory owner={{ owner }} group={{ group }} mode=0775
+- name: create dir3 document root
+  file: path={{ dir3 }}ssl state=directory owner={{ owner }} group={{ group }} mode=0775
+
+
+- name: create logs access
+  file: path={{ dir1 }}logs/access.log state=file owner={{ owner }} group={{ group }} mode=0775
+- name: create logs error
+  file: path={{ dir1 }}logs/error.log state=file owner={{ owner }} group={{ group }} mode=0775
+- name: create logs access
+  file: path={{ dir2 }}logs/access.log state=file owner={{ owner }} group={{ group }} mode=0775
+- name: create logs error
+  file: path={{ dir2 }}logs/error.log state=file owner={{ owner }} group={{ group }} mode=0775
+- name: create logs access
+  file: path={{ dir3 }}logs/access.log state=file owner={{ owner }} group={{ group }} mode=0775
+- name: create logs error
+  file: path={{ dir3 }}logs/error.log state=file owner={{ owner }} group={{ group }} mode=0775
+
+
+
+- name: create logs access ssl
+  file: path={{ dir3 }}logs/ssl_access.log state=file owner={{ owner }} group={{ group }} mode=0775
+- name: create logs error ssl
+  file: path={{ dir3 }}logs/ssl_error.log state=file owner={{ owner }} group={{ group }} mode=0775
+
+
+
+- name: ServerAdmin
+  shell: sed -i 's/^ServerAdmin..*/ServerAdmin admin@trulytech.net/' {{ apache_conf }}
+
+- name: signature 500
+  shell: sed -i 's/^#ErrorDocument 500 .The.*/ErrorDocument 500 "Internal Server Error"/' {{ apache_conf }}
+
+- name: Email in signature  
+  shell: sed -i 's/^ServerSignature On/ServerSignature EMail/' {{ apache_conf }}
+
+- name: server-status
+  shell: sed -i '/^#.Location .server.status./r templates/apache_centos_server-status' {{ apache_conf }}
+
+- name: vhost
+  shell: sed -i '/^#..VirtualHost./r templates/apache_centos_vhosts' {{ apache_conf }}
+
+- name: htpassword
+  htpasswd: path=/etc/httpd/passwords crypt_scheme=apr_md5_crypt name=webadmin password=4v2JaLuQ mode=0640
+
+

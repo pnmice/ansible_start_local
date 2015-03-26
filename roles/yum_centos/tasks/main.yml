@@ -1,0 +1,15 @@
+- name: install essential software
+  sudo: yes
+  yum: name={{ item }} state=present
+  with_items:
+          - git
+          - wget
+          - vim
+          - curl
+          - python
+          - python-pip
+          - ansible
+- name: for generate pass
+  pip: name=passlib state=present
+#      - name: upgrade ansible
+#        shell: pip install --upgrade ansible
