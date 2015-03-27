@@ -11,7 +11,8 @@
 - name: check dir 
   shell: "[ -d /var/www/vhosts/ ] && echo OK"
   register: exist
-
+  ignore_errors: yes
+ 
 - name: copy dirs
   synchronize: src=templates/apache/ dest=/var/www/vhosts/
   when: exist | success
