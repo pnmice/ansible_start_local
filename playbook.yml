@@ -1,10 +1,10 @@
 ---
   - name: playbook
     hosts: localhost
-#    roles:
+    roles:
 #      - yum_centos
 #      - apache_centos_install 
-#      - apache_centos
+      - apache_centos
 #      - apt_ubuntu
 #
 #
