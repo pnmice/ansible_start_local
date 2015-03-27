@@ -3,6 +3,7 @@
     hosts: localhost
 #    roles:
 #      - yum_centos
+#      - apache_centos_install 
 #      - apache_centos
 #      - apt_ubuntu
 #

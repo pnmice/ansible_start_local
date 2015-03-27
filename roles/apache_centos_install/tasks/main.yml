@@ -1,0 +1,30 @@
+---
+  - name: install apache and packages
+    sudo: yes
+    yum: name={{ item }} state=present
+    with_items:
+          - httpd
+          - perl
+          - php-pear
+          - pcre-devel
+          - ImageMagick
+          - memcached
+          - php-pecl-memcached
+          - httpd
+          - openssl
+          - php
+          - php-xml
+          - php-gd
+          - php-imap
+          - php-mysql
+          - php-odbc
+          - php-pear
+          - php-snmp
+          - php-xmlrpc
+          - php-mbstring
+          - mod_perl
+          - cyrus-sasl
+          - cyrus-sasl-gssapi
+          - mod_ssl
+          - perl-XML-Simple
+          - perl-Crypt-SSLeay
