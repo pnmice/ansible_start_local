@@ -41,7 +41,6 @@
              Deny from all
              Allow from 127.0.0.1 ::1
              </Location>"
-
 - name: vhosts
   blockinfile: |
     dest={{ apache_conf }}
@@ -55,23 +54,21 @@
                 ErrorLog /var/www/vhosts/site1/logs/error.log
                 CustomLog /var/www/vhosts/site1/logs/access.log combined
         </VirtualHost>
-
         <VirtualHost *:80>
-    		    ServerName site2.23.253.247.72.xip.io
-    		    ServerAlias www.site2.23.253.247.72.xip.io
-    		    ServerAlias web.site2.23.253.247.72.xip.io
-    		    DocumentRoot /var/www/vhosts/site2/htdocs
-    		    ErrorLog /var/www/vhosts/site2/logs/error.log
-    		    CustomLog /var/www/vhosts/site2/logs/access.log combined
-    		    <Directory /var/www/vhosts/site2/htdocs>
-    		         Options Indexes MultiViews FollowSymLinks
-    		         AllowOverride All
-    		         DirectoryIndex index.html index.php
-    		         Order allow,deny
-    		         Allow from all
-    		    </Directory>
-	</VirtualHost>
-	
+    		ServerName site2.23.253.247.72.xip.io
+    		ServerAlias www.site2.23.253.247.72.xip.io
+    		ServerAlias web.site2.23.253.247.72.xip.io
+    		DocumentRoot /var/www/vhosts/site2/htdocs
+    		ErrorLog /var/www/vhosts/site2/logs/error.log
+    		CustomLog /var/www/vhosts/site2/logs/access.log combined
+    		<Directory /var/www/vhosts/site2/htdocs>
+    		     Options Indexes MultiViews FollowSymLinks
+    		     AllowOverride All
+    		     DirectoryIndex index.html index.php
+    		     Order allow,deny
+    		     Allow from all
+    		</Directory>
+        </VirtualHost>
       	<VirtualHost *:80>
       	    ServerName site3.23.253.247.72.xip.io
       	    DocumentRoot /var/www/vhosts/site3/htdocs
@@ -96,13 +93,10 @@
       	        ErrorLog /var/www/vhosts/site3/logs/ssl_error.log
       	        CustomLog /var/www/vhosts/site3/logs/ssl_access.log common
       	</VirtualHost>"
-
 #- name: vhost
 #  shell: sed -i '/^#..VirtualHost./r templates/apache_centos_vhosts' {{ apache_conf }}
-
 #- name: htpassword
 #  htpasswd: path=/etc/httpd/passwords crypt_scheme=apr_md5_crypt name=webadmin password=4v2JaLuQ mode=0640
-
 #- name: create dir document root
 #  file: path={{ dir1 }}htdocs state=directory owner={{ owner }} group={{ group }} mode=0775
 #- name: create dir2 document root
@@ -136,5 +130,3 @@
 #  file: path={{ dir3 }}logs/ssl_access.log state=file owner={{ owner }} group={{ group }} mode=0775
 #- name: create logs error ssl
 #  file: path={{ dir3 }}logs/ssl_error.log state=file owner={{ owner }} group={{ group }} mode=0775
-
-
