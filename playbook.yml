@@ -4,6 +4,7 @@
     roles:
       - yum_centos
       - apache_centos_install 
+#create /var/www/vhost
       - apache_centos
 #      - apt_ubuntu
 #
