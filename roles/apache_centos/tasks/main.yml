@@ -76,6 +76,7 @@
                   DocumentRoot /var/www/vhosts/site3/htdocs
                   ErrorLog /var/www/vhosts/site3/logs/error.log
                   CustomLog /var/www/vhosts/site3/logs/access.log combined
+                  #Redirect / https://site3.23.253.247.72.xip.io
                   <Directory /var/www/vhosts/site3/htdocs>
                       AuthType Basic
                       AuthName 'Secure Content'
