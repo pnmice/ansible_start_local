@@ -9,28 +9,22 @@
   set_fact: apache_conf="/etc/httpd/conf/httpd.conf" dir1="/var/www/vhosts/site1/" dir2="/var/www/vhosts/site2/" dir3="/var/www/vhosts/site3/" owner="root" group="webadmin"
 
 - name: check dir 
-  shell: "[ -d /var/www/vhosts/ ] && echo OK"
-  register: exist
-  ignore_errors: yes
+  stat: path=/var/www/vhosts/
+  register: st
  
 - name: copy dirs
   synchronize: src=templates/apache/ dest=/var/www/vhosts/
-  when: exist | success
+  when: st.stat.exists
 
 - name: ServerAdmin
   replace: dest={{ apache_conf }} regexp="^ServerAdmin..*" replace="ServerAdmin admin@trulytech.net" backup=yes
-#  shell: sed -i 's/^ServerAdmin..*/ServerAdmin admin@trulytech.net/' {{ apache_conf }}
 
 - name: signature 500
   replace: dest={{ apache_conf }} regexp="^#ErrorDocument.500..*" replace="ErrorDocument 500 'Internal Server Error'" backup=yes
-#  shell: sed -i 's/^#ErrorDocument 500 .The.*/ErrorDocument 500 "Internal Server Error"/' {{ apache_conf }}
 
 - name: Email in signature
   replace: dest={{ apache_conf }} regexp="^ServerSignature.On" replace="ServerSignature EMail"
-#  shell: sed -i 's/^ServerSignature On/ServerSignature EMail/' {{ apache_conf }}
 
-#- name: server-status
-# shell: sed -i '/^#.Location .server.status./r templates/apache_centos_server-status' {{ apache_conf }}
 
 - name: server-status
   blockinfile: |

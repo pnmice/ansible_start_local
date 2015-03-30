@@ -4,6 +4,7 @@
     yum: name={{ item }} state=present
     with_items:
           - httpd
+          - links
           - perl
           - php-pear
           - pcre-devel
