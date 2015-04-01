@@ -9,8 +9,11 @@
   - name: enable module rewrite
     apache2_module: state=present name=rewrite
 
-  - name: enable module rewrite
-    apache2_module: state=present name=rewrite
+  - name: enable module status
+    apache2_module: state=present name=status
+
+  - name: enable module ssl
+    apache2_module: state=present name=ssl
     notified:
       - restart apache   
 
@@ -54,10 +57,7 @@
     blockinfile: |
       dest=/etc/apache2/sites-enabled/vhost1
       marker="# {mark} vhots1"
-      content="
-                NameVirtualHost *:80
-                NameVirtualHost *:443
-                <VirtualHost *:80>
+      content="<VirtualHost *:80>
                     ServerName site1.23.253.247.72.xip.io
                     DocumentRoot /var/www/vhosts/site1/htdocs
                     ErrorLog /var/www/vhosts/site1/logs/error.log
@@ -67,8 +67,7 @@
     blockinfile: |
       dest=/etc/apache2/sites-enabled/vhost2
       marker="# {mark} vhots2"
-      content="              
-                <VirtualHost *:80>
+      content="<VirtualHost *:80>
                     ServerName site2.23.253.247.72.xip.io
                     ServerAlias www.site2.23.253.247.72.xip.io
                     ServerAlias web.site2.23.253.247.72.xip.io
@@ -87,8 +86,7 @@
     blockinfile: |
       dest=/etc/apache2/sites-enabled/vhost3
       marker="# {mark} vhots3"
-      content="              
-                <VirtualHost *:80>
+      content="<VirtualHost *:80>
                     ServerName site3.23.253.247.72.xip.io
                     DocumentRoot /var/www/vhosts/site3/htdocs
                     ErrorLog /var/www/vhosts/site3/logs/error.log
