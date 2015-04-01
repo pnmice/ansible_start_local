@@ -50,12 +50,11 @@
 
 
     tasks:
-#UMASK
-  - name: change umaks user
-    replace: dest=/etc/login.defs regexp="^UMASK.*" replace="UMASK 037" backup=yes
-    
-  - name: change umaks root
-    lineinfile: dest=/root/.bashrc line="UMASK 007 
+        - name: change umaks user
+          replace: dest=/etc/login.defs regexp="^UMASK.*" replace="UMASK 037" backup=yes
+
+        - name: change umaks root
+          lineinfile: dest=/root/.bashrc line="UMASK 007" 
 
 
 
