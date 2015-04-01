@@ -9,9 +9,3 @@
           - memcached
           - apache2
           - openssl
-          - mod_perl
-          - cyrus-sasl
-          - cyrus-sasl-gssapi
-          - mod_ssl
-          - perl-XML-Simple
-          - perl-Crypt-SSLeay
