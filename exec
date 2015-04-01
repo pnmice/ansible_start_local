@@ -2,11 +2,13 @@
 
 if [ ! -f /tmp/den ]; then
 	if [ -d /etc/apt ]; then
-		apt-get install vim ansible
+		apt-get update 
+		apt-get install -y vim ansible python-pip
 		pip install --upgrade ansible
 		touch /tmp/den
 	else
-		apt-get install vim ansible
+		yum update
+		yum install -y vim ansible python-pip
 		pip install --upgrade ansible
 		touch /tmp/den	
 	fi 

@@ -12,10 +12,7 @@
   - name: enable module rewrite
     apache2_module: state=present name=rewrite
     notified:
-      - restart apache 
-
-
-  
+      - restart apache   
 
   - name : dir variable
     set_fact: apache_conf="/etc/httpd/conf/httpd.conf" dir1="/var/www/vhosts/site1/" dir2="/var/www/vhosts/site2/" dir3="/var/www/vhosts/site3/" owner="root" group="webadmin"
@@ -32,7 +29,7 @@
     replace: dest=/etc/apache2/sites-available/default regexp="^ServerAdmin..*" replace="ServerAdmin admin@trulytech.net" backup=yes
 
   - name: ServerAdmin ssl
-    replace: dest=/etc/apache2/sites-available/default-ssl regexp="^ServerAdmin..*" replace="ServerAdmin admin@trulytech.net" backup=yes  
+    replace: dest=/etc/apache2/sites-available/default regexp="^ServerAdmin..*" replace="ServerAdmin admin@trulytech.net" backup=yes  
  
   - name: signature 500
     replace: dest=/etc/apache2/conf.d/localized-error-pages regexp="^#ErrorDocument.500..*" replace="ErrorDocument 500 'Internal Server Error'" backup=yes
@@ -43,20 +40,20 @@
   
 
 
-  - name: server-status
+#  - name: server-status
+#    blockinfile: |
+#      dest={{ apache_conf }}
+#      marker="# {mark} server-status"
+#      content="<Location /server-status>
+#               SetHandler server-status
+#               Order deny,allow
+#               Deny from all
+#               Allow from 127.0.0.1 ::1
+#               </Location>"
+  - name: vhosts1
     blockinfile: |
-      dest={{ apache_conf }}
-      marker="# {mark} server-status"
-      content="<Location /server-status>
-               SetHandler server-status
-               Order deny,allow
-               Deny from all
-               Allow from 127.0.0.1 ::1
-               </Location>"
-  - name: vhosts
-    blockinfile: |
-      dest={{ apache_conf }}
-      marker="# {mark} vhots"
+      dest=/etc/apache2/sites-enabled/vhost1
+      marker="# {mark} vhots1"
       content="
                 NameVirtualHost *:80
                 NameVirtualHost *:443
@@ -66,6 +63,11 @@
                     ErrorLog /var/www/vhosts/site1/logs/error.log
                     CustomLog /var/www/vhosts/site1/logs/access.log combined
                 </VirtualHost>
+  - name: vhosts2
+    blockinfile: |
+      dest=/etc/apache2/sites-enabled/vhost2
+      marker="# {mark} vhots2"
+      content="              
                 <VirtualHost *:80>
                     ServerName site2.23.253.247.72.xip.io
                     ServerAlias www.site2.23.253.247.72.xip.io
@@ -81,6 +83,11 @@
                         Allow from all
                     </Directory>
                 </VirtualHost>
+  - name: vhosts3
+    blockinfile: |
+      dest=/etc/apache2/sites-enabled/vhost3
+      marker="# {mark} vhots3"
+      content="              
                 <VirtualHost *:80>
                     ServerName site3.23.253.247.72.xip.io
                     DocumentRoot /var/www/vhosts/site3/htdocs
