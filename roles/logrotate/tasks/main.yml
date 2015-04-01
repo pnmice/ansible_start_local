@@ -1,0 +1,17 @@
+---
+  - name: delete line /etc/logrotate.d/rsyslog
+    lineinfile: dest=/etc/logrotate.d/rsyslog state=absent regexp="^/var/log/messages"
+
+  - name: 200MB
+    blockinfile: |
+    dest=/etc/logrotate.conf
+    marker="# {mark} log"
+    content="/var/log/messages {
+              missingok
+              monthly
+              minsize 200M
+              create 0664 root utmp
+              rotate 1
+             }"
+  - name: restart log
+    shell: logrotate /etc/logrotate.conf           

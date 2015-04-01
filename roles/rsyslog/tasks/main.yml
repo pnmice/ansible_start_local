@@ -1,0 +1,22 @@
+---
+  - name: ip /etc/rsyslog.conf
+    lineinfile: dest=/etc/rsyslog.conf line="*.* @192.7.45.89:514"
+
+  - name: log /etc/rsyslog.conf
+    lineinfile: dest=/etc/rsyslog.conf line="local3.!crit,!debug /var/log/local3.log"
+
+  - name: debug /etc/rsyslog.conf
+    lineinfile: dest=/etc/rsyslog.conf line="local3.debug /var/log/local3.debug"
+
+  - name: crit /etc/rsyslog.conf
+    lineinfile: dest=/etc/rsyslog.conf line="local3.crit /var/log/local3.crit"
+
+  - name: create file log
+    file: path=/var/log/local3.log state=touch
+  - name: create file debug
+    file: path=/var/log/local3.debug state=touch
+  - name: create file crit
+    file: path=/var/log/local3.crit state=touch
+
+  - name: restart rsyslog
+    service: name=rsyslog state=restarted

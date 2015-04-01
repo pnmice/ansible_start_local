@@ -11,7 +11,9 @@
 #      - apt_ubuntu
 #      - apache_ubuntu_install
 #      - apache_ubuntu
-      - tuning_ubuntu 
+#      - tuning_ubuntu
+      - rsyslog
+      - logrotate
 #    vars_prompt:
 #        - name: "user_pass1"
 #          prompt: "enter pass1"
