@@ -5,8 +5,7 @@
     with_items:
           - links
           - perl
-          - php-pear          
-          - ImageMagick
+          - php-pear 
           - memcached
           - php-pecl-memcached
           - apache2
