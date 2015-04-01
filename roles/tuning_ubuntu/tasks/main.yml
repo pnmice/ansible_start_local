@@ -1,16 +1,16 @@
 ---
-  - name: process in file
-    lineinfile: dest=/etc/security/limits.conf state=absent regexp="^vivek hard nproc 25"
+  - name: process in file /etc/security/limits.conf
+    lineinfile: dest=/etc/security/limits.conf line="^vivek hard nproc 25"
 
-  - name: core in file
-    lineinfile: dest=/etc/security/limits.conf state=absent regexp="^vivek hard core 8192"
+  - name: core in file /etc/security/limits.conf
+    lineinfile: dest=/etc/security/limits.conf line="^vivek hard core 8192"
 
-  - name: swapiness
-    lineinfile: dest=/etc/sysctl.conf state=absent regexp="^vm.swappiness=50"
+  - name: swapiness /etc/sysctl.conf
+    lineinfile: dest=/etc/sysctl.conf line="^vm.swappiness=50"
 
-  - name: tcp_syncookies
-    lineinfile: dest=/etc/sysctl.conf state=absent regexp="^net.ipv4.tcp_syncookies = 0"
+  - name: tcp_syncookies /etc/sysctl.conf
+    lineinfile: dest=/etc/sysctl.conf line="^net.ipv4.tcp_syncookies = 0"
 
-  - name: backlog
-    lineinfile: dest=/etc/sysctl.conf state=absent regexp="^net.ipv4.tcp_max_syn_backlog=4096"
+  - name: backlog /etc/sysctl.conf
+    lineinfile: dest=/etc/sysctl.conf line="^net.ipv4.tcp_max_syn_backlog=4096"
 

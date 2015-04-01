@@ -5,15 +5,13 @@
 #CentOS
 #      - yum_centos
 #      - apache_centos_install
-
 #      - apache_centos
 
 #Ubuntu
 #      - apt_ubuntu
 #      - apache_ubuntu_install
-        
-      - apache_ubuntu
-#      
+#      - apache_ubuntu
+      - tuning_ubuntu 
 #    vars_prompt:
 #        - name: "user_pass1"
 #          prompt: "enter pass1"
