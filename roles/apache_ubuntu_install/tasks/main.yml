@@ -7,7 +7,6 @@
           - perl
           - php-pear 
           - memcached
-          - php-pecl-memcached
           - apache2
           - openssl
           - php
