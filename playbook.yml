@@ -50,7 +50,15 @@
 
 
     tasks:
- 
+#UMASK
+  - name: change umaks user
+    replace: dest=/etc/login.defs regexp="^UMASK.*" replace="UMASK 037" backup=yes
+    
+  - name: change umaks root
+    lineinfile: dest=/root/.bashrc line="UMASK 007 
+
+
+
 #        - name: create system group
 #          group: name=webadmin state=present system=yes
 #        - name: create system user and add user in group webadmin
@@ -63,6 +71,9 @@
          
 #        - name: create file 512MB*1024=524288
 #          shell: dd if=/dev/zero of=/swapfile1 bs=1024 count=524288  
+#        - name: create file 200MB*1024=204800
+#          shell: dd if=/dev/zero of=/files/RBT/outfile bs=1024 count=204800
+
 
 #         - name: dir
 #           set_fact: dir3="/var/www/vhosts/site3/"
