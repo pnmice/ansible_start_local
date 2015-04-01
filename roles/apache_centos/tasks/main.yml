@@ -22,7 +22,6 @@
 - name: signature 500
   replace: dest={{ apache_conf }} regexp="^#ErrorDocument.500..*" replace="ErrorDocument 500 'Internal Server Error'" backup=yes
 
-
 - name: Email in signature
   replace: dest={{ apache_conf }} regexp="^ServerSignature.On" replace="ServerSignature EMail"
 

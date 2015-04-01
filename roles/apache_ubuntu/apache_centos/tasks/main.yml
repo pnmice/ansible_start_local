@@ -21,17 +21,13 @@
 
 - name: signature 500
   replace: dest={{ apache_conf }} regexp="^#ErrorDocument.500..*" replace="ErrorDocument 500 'Internal Server Error'" backup=yes
-<<<<<<< HEAD
 
 - name: Email in signature
   replace: dest={{ apache_conf }} regexp="^ServerSignature.On" replace="ServerSignature EMail"
 
-=======
-
-
 - name: Email in signature
   replace: dest={{ apache_conf }} regexp="^ServerSignature.On" replace="ServerSignature EMail"
->>>>>>> 67be5b1e7c53434420393063722e81f1d08661c1
+
 
 - name: server-status
   blockinfile: |
