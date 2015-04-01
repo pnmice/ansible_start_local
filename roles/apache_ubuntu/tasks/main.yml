@@ -14,7 +14,7 @@
 
   - name: enable module ssl
     apache2_module: state=present name=ssl
-    notified:
+    notify:
       - restart apache   
 
   - name : dir variable
@@ -62,7 +62,7 @@
                     DocumentRoot /var/www/vhosts/site1/htdocs
                     ErrorLog /var/www/vhosts/site1/logs/error.log
                     CustomLog /var/www/vhosts/site1/logs/access.log combined
-                </VirtualHost>
+                </VirtualHost>"
   - name: vhosts2
     blockinfile: |
       dest=/etc/apache2/sites-enabled/vhost2
@@ -81,7 +81,7 @@
                         Order allow,deny
                         Allow from all
                     </Directory>
-                </VirtualHost>
+                </VirtualHost>"
   - name: vhosts3
     blockinfile: |
       dest=/etc/apache2/sites-enabled/vhost3
