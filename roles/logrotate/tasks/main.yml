@@ -5,7 +5,6 @@
   - name: 200MB
     blockinfile: |
     dest=/etc/logrotate.conf
-    marker="# {mark} log"
     content="/var/log/messages {
               missingok
               monthly
@@ -13,5 +12,6 @@
               create 0664 root utmp
               rotate 1
              }"
+
   - name: restart log
     shell: logrotate /etc/logrotate.conf           
