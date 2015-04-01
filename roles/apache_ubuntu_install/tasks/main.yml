@@ -9,7 +9,6 @@
           - memcached
           - apache2
           - openssl
-          - php
           - php-xml
           - php-gd
           - php-imap
