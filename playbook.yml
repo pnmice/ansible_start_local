@@ -2,13 +2,17 @@
   - name: playbook
     hosts: localhost
     roles:
-      - yum_centos
-      - apache_centos_install 
+#CentOS
+#      - yum_centos
+#      - apache_centos_install
 #create /var/www/vhost
-      - apache_centos
-#      - apt_ubuntu
-#
-#
+#      - apache_centos
+
+#Ubuntu
+      - apt_ubuntu
+      - apache_ubuntu_install
+        #create /var/www/vhost
+#      - apache_centos
 #      
 #    vars_prompt:
 #        - name: "user_pass1"
