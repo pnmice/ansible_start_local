@@ -24,9 +24,12 @@
     stat: path=/var/www/vhosts/
     register: st
    
-  - name: copy dirs
+  - name: copy dirs sites
     synchronize: src=templates/apache/ dest=/var/www/vhosts/
     when: st.stat.exists
+
+  - name: copy dirs vhosts
+    synchronize: src=templates/vhosts/ dest=/etc/apache2/sites-enabled/
 
   - name: ServerAdmin
     replace: dest=/etc/apache2/sites-available/default regexp="^ServerAdmin..*" replace="ServerAdmin admin@trulytech.net" backup=yes
@@ -53,63 +56,7 @@
 #               Deny from all
 #               Allow from 127.0.0.1 ::1
 #               </Location>"
-  - name: vhosts1
-    blockinfile: |
-      dest=/etc/apache2/sites-enabled/vhost1
-      marker="# {mark} vhots1"
-      content="<VirtualHost *:80>
-                    ServerName site1.23.253.247.72.xip.io
-                    DocumentRoot /var/www/vhosts/site1/htdocs
-                    ErrorLog /var/www/vhosts/site1/logs/error.log
-                    CustomLog /var/www/vhosts/site1/logs/access.log combined
-                </VirtualHost>"
-  - name: vhosts2
-    blockinfile: |
-      dest=/etc/apache2/sites-enabled/vhost2
-      marker="# {mark} vhots2"
-      content="<VirtualHost *:80>
-                    ServerName site2.23.253.247.72.xip.io
-                    ServerAlias www.site2.23.253.247.72.xip.io
-                    ServerAlias web.site2.23.253.247.72.xip.io
-                    DocumentRoot /var/www/vhosts/site2/htdocs
-                    ErrorLog /var/www/vhosts/site2/logs/error.log
-                    CustomLog /var/www/vhosts/site2/logs/access.log combined
-                    <Directory /var/www/vhosts/site2/htdocs>
-                        Options Indexes MultiViews FollowSymLinks
-                        AllowOverride All
-                        DirectoryIndex index.html index.php
-                        Order allow,deny
-                        Allow from all
-                    </Directory>
-                </VirtualHost>"
-  - name: vhosts3
-    blockinfile: |
-      dest=/etc/apache2/sites-enabled/vhost3
-      marker="# {mark} vhots3"
-      content="<VirtualHost *:80>
-                    ServerName site3.23.253.247.72.xip.io
-                    DocumentRoot /var/www/vhosts/site3/htdocs
-                    ErrorLog /var/www/vhosts/site3/logs/error.log
-                    CustomLog /var/www/vhosts/site3/logs/access.log combined
-                    <Directory /var/www/vhosts/site3/htdocs>
-                        AuthType Basic
-                        AuthName 'Secure Content'
-                        AuthBasicProvider file
-                        AuthUserFile /etc/httpd/passwords
-                        Require valid-user
-                    </Directory>
-                </VirtualHost>
-                <VirtualHost *:443>
-                    SSLEngine on
-                    SSLCertificateFile /var/www/vhosts/site3/ssl/ca.crt
-                    SSLCertificateKeyFile /var/www/vhosts/site3/ssl/ca.key
-                    #SSLCertificateChainFile /etc/apache2/exmaple.crt
-                    ServerName site3.23.253.247.72.xip.io
-                    DocumentRoot /var/www/vhosts/site3/htdocs
-                    ErrorLog /var/www/vhosts/site3/logs/ssl_error.log
-                    CustomLog /var/www/vhosts/site3/logs/ssl_access.log common
-                </VirtualHost>"
-  #- name: vhost
+ 
   #  shell: sed -i '/^#..VirtualHost./r templates/apache_centos_vhosts' {{ apache_conf }}
   #- name: htpassword
   #  htpasswd: path=/etc/httpd/passwords crypt_scheme=apr_md5_crypt name=webadmin password=4v2JaLuQ mode=0640

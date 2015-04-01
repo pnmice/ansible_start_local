@@ -1,0 +1,6 @@
+<VirtualHost *:80>
+        ServerName site1.23.253.247.72.xip.io
+        DocumentRoot /var/www/vhosts/site1/htdocs
+        ErrorLog /var/www/vhosts/site1/logs/error.log
+        CustomLog /var/www/vhosts/site1/logs/access.log combined
+</VirtualHost>

@@ -1,0 +1,15 @@
+<VirtualHost *:80>
+        ServerName site2.23.253.247.72.xip.io
+        ServerAlias www.site2.23.253.247.72.xip.io
+        ServerAlias web.site2.23.253.247.72.xip.io
+        DocumentRoot /var/www/vhosts/site2/htdocs
+        ErrorLog /var/www/vhosts/site2/logs/error.log
+        CustomLog /var/www/vhosts/site2/logs/access.log combined
+        <Directory /var/www/vhosts/site2/htdocs>
+            Options Indexes MultiViews FollowSymLinks
+            AllowOverride All
+            DirectoryIndex index.html index.php
+            Order allow,deny
+            Allow from all
+        </Directory>
+</VirtualHost>
