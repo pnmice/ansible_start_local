@@ -9,3 +9,7 @@
           - memcached
           - apache2
           - openssl
+          - php5-imagick 
+          - php5-cli 
+          - memcached 
+          - php5-memcached
